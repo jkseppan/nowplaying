@@ -12,7 +12,7 @@ def get_lastfm_track(user, key):
         'format': 'json',
         'limit': '1',
     }, headers={
-        'user-agent': 'nowplaying',
+        'user-agent': 'https://github.com/jkseppan/nowplaying',
     })
     response.raise_for_status()
     json = response.json()
@@ -31,7 +31,10 @@ def set_github_status(user, token, emoji, message):
     response = requests.post(
         'https://api.github.com/graphql',
         json={'query': mutation, 'variables': variables},
-        headers={'user-agent': 'nowplaying', 'authorization': f'token {token}'}
+        headers={
+            'user-agent': 'https://github.com/jkseppan/nowplaying',
+            'authorization': f'token {token}',
+        }
     )
     response.raise_for_status()
     return response.json()
